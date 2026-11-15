@@ -1,0 +1,42 @@
+test_bad_coordinate (test_api.APITests.test_bad_coordinate) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "GET /api/route?lat=nan&lon=0 HTTP/1.1" 400 -
+ok
+test_bad_json_shape (test_api.APITests.test_bad_json_shape) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 400 -
+ok
+test_concurrent_distinct_sos (test_api.APITests.test_concurrent_distinct_sos) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/sos HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "GET /api/state HTTP/1.1" 200 -
+ok
+test_persistence (test_api.APITests.test_persistence) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/road HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 11:31:48] "GET /api/state HTTP/1.1" 200 -
+ok
+test_private_signals (test_api.APITests.test_private_signals) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "GET /api/state HTTP/1.1" 200 -
+ok
+test_unauthorized_mutation (test_api.APITests.test_unauthorized_mutation) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/road HTTP/1.1" 401 -
+ok
+test_unknown_path (test_api.APITests.test_unknown_path) ... 127.0.0.1 - - [15/Nov/2026 11:31:48] "POST /api/unknown HTTP/1.1" 404 -
+ok
+test_90 (test_engine.EngineTests.test_90) ... ok
+test_95 (test_engine.EngineTests.test_95) ... ok
+test_confirm (test_engine.EngineTests.test_confirm) ... ok
+test_cross_zone_radius (test_engine.EngineTests.test_cross_zone_radius) ... ok
+test_distance (test_engine.EngineTests.test_distance) ... ok
+test_duplicate (test_engine.EngineTests.test_duplicate) ... ok
+test_far (test_engine.EngineTests.test_far) ... ok
+test_five_unique (test_engine.EngineTests.test_five_unique) ... ok
+test_nearest (test_engine.EngineTests.test_nearest) ... ok
+test_no_route (test_engine.EngineTests.test_no_route) ... ok
+test_outside (test_engine.EngineTests.test_outside) ... ok
+test_resource_failure (test_engine.EngineTests.test_resource_failure) ... ok
+test_road_reroute (test_engine.EngineTests.test_road_reroute) ... ok
+test_rules (test_engine.EngineTests.test_rules) ... ok
+test_safe (test_engine.EngineTests.test_safe) ... ok
+test_validation (test_engine.EngineTests.test_validation) ... ok
+test_window (test_engine.EngineTests.test_window) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.531s
+
+OK

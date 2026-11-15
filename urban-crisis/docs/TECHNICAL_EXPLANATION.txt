@@ -1,0 +1,32 @@
+URBAN CRISIS & CROWD EVACUATION ENGINE — TEXNİKİ İZAH
+
+1. Problem
+Böhran zamanı yol bağlanması və məntəqələrin dolması ilkin təxliyə planını etibarsız edir. Çoxsaylı SOS-lar operatorun prioritetləşdirməsini çətinləşdirir.
+
+2. Həll
+Vətəndaş koordinat və ya rayon seçir, doluluqları görür, yol qrafında ən qısa əlçatan marşrut alır. Dörd təhlükə növündən birini klikləyərək SOS göndərir. Təhlükəsiz statusu aktiv siqnalı bağlayır. Operator paneli zonalar, SOS, məntəqələr və briqadaları izləyir. Qaydalar kritik hadisə yaradır; insan təsdiqindən sonra resurslar ayrılır.
+
+3. Texnologiyalar və seçim səbəbi
+Python standart kitabxanası — xarici paket və internet olmadan lokal işə salınma. SQLite — diskdə qalıcı vəziyyət və tranzaksiya. HTML/CSS/JavaScript — ayrıca frontend build tələbi yoxdur. SVG — offline sxematik xəritə. Docker — alternativ paketləmə. Bu seçimlər hackathonun qısa vaxtında quraşdırma riskini azaldır; yüksək yük üçün optimallaşdırılmış istehsal arxitekturası deyil.
+
+4. Struktur
+engine.py domen qaydalarını serverdən ayırır. server.py API və persistence qatıdır. static/ istifadəçi interfeysidir. tests/ domen və HTTP inteqrasiyasıdır. docs/ təqdimat sənədləridir. README arxitektura sxemini və endpoint müqavilələrini verir.
+
+5. Analitika
+Son 300 saniyənin aktiv SOS-ları götürülür. Eyni zona və ya hər siqnal ətrafında 500 metrlik radius üzrə unikal vətəndaşlar sayılır. Beş və daha çox olduqda alarm yaranır. Doluluq 95%-dən böyükdürsə ayrıca alarm yaranır. 90%-dən başlayan doluluq isə marşrut seçimindən kənarlaşdırılır. Məntəqələr 100 nəfər tutumla başladığından sərhəd demolarını göstərmək asandır.
+
+6. Etibarlılıq
+SQLite tranzaksiyası və server lock-u paralel əməliyyatlarda vəziyyəti qoruyur. Aktiv SOS idempotentdir. Operator qərarı təkrar resurs ayırmır. Resurs çatmırsa mutasiya edilmir. API giriş və payload validasiyası edir. İctimai snapshot SOS kimliklərini və operator siqnallarını göstərmir. Brauzer bağlantı xətasını göstərir; offline SOS qəbul edilmiş kimi göstərilmir.
+
+7. Məhdudiyyətlər
+Real fövqəladə xidmət inteqrasiyası yoxdur. Koordinatlar və rayonlar sintetik şəbəkəyə aiddir. İnsan kimliyi təsdiqlənmir. Standart Python HTTP serveri istehsal üçün nəzərdə tutulmayıb. Bir ehtiyat məntəqə var. JSON vəziyyəti bütöv yazılır. Radius qrupları qismən üst-üstə düşə bilər. UI vizual yoxlaması mühit məhdudiyyəti səbəbindən tamamlanmayıb; Docker build də icra edilməyib.
+
+8. Gələcək inkişaf
+Real xəritə və yol bağlanması axını; PostGIS məkan indeksləri; operator RBAC və audit identifikatorları; SMS/push; əlillər üçün əlçatan marşrutlar; yaralı prioriteti; çoxdilli ekran; mobil offline növbə; məntəqə rezervasiyası; yüksək yük və nasazlıq testləri.
+
+9. Texniki müdafiə üçün cavablar
+Niyə runtime AI yoxdur? Kritik hədlər deterministik, test edilə bilən və izah oluna biləndir.
+Niyə polling? Lokal MVP-də sadə və etibarlıdır, gecikmə təxminən 2 saniyədir.
+Niyə avtomatik göndərmə yox, təsdiq? Tapşırıq operatorun bir kliklə qərarı təsdiqləməsini tələb edir.
+Niyə 95-də alarm yoxdur? Tapşırıqda “95% keçərsə” yazılıb; strict greater-than tətbiq olunub.
+Niyə 90-da alternativ? Tapşırıqda 90% olduqda alternativ tələb edilib.
